@@ -3,21 +3,21 @@ using System.Collections.Generic;
 
 namespace Features.Orders
 {
-    class GetOrderHistoryFeature
+    class ListOrdersHistoryFeature
     {
         private readonly IGetOrderHistoryFeatureDataAccess _dataAccess;
 
-        public GetOrderHistoryFeature(IGetOrderHistoryFeatureDataAccess dataAccess)
+        public ListOrdersHistoryFeature(IGetOrderHistoryFeatureDataAccess dataAccess)
         {
             _dataAccess = dataAccess;
         }
 
-        IEnumerable<Order> GetOrders(Query query) => _dataAccess.GetOrders(query);
+        IEnumerable<Order> ListOrders(Query query) => _dataAccess.ListOrders(query);
     }
 
     interface IGetOrderHistoryFeatureDataAccess
     {
-        IEnumerable<Order> GetOrders(Query query);
+        IEnumerable<Order> ListOrders(Query query);
     }
 
     class Query

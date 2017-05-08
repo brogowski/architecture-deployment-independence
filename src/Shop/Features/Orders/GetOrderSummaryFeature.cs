@@ -6,12 +6,10 @@ namespace Features.Orders
     class GetOrderSummaryFeature
     {
         private readonly IGetOrderSummaryFeatureDataAccess _dataAccess;
-        private readonly IPaymentProcessor _paymentProcessor;
 
-        public GetOrderSummaryFeature(IGetOrderSummaryFeatureDataAccess dataAccess, IPaymentProcessor paymentProcessor)
+        public GetOrderSummaryFeature(IGetOrderSummaryFeatureDataAccess dataAccess)
         {
             _dataAccess = dataAccess;
-            _paymentProcessor = paymentProcessor;
         }
 
         OrderSummary GetNewOrderSummary(IEnumerable<string> productIds) => GetOrderSummaryForProducts(productIds, OrderStatus.New);
@@ -26,7 +24,7 @@ namespace Features.Orders
         private OrderStatus GetOrderStatus(string orderId)
         {
             if (_dataAccess.OrderIsCancelled(orderId)) { return OrderStatus.Cancelled; }
-            if (_paymentProcessor.OrderIsPaid(orderId)) { return OrderStatus.Completed; }
+            if (_dataAccess.OrderIsPaid(orderId)) { return OrderStatus.Completed; }
             return OrderStatus.Confirmed;
         }
 
@@ -40,15 +38,11 @@ namespace Features.Orders
         private static int CountProducts(string id, IEnumerable<string> allIds) => allIds.Count(x => x == id);
     }
 
-    interface IPaymentProcessor
-    {
-        bool OrderIsPaid(string orderId);
-    }
-
     interface IGetOrderSummaryFeatureDataAccess
     {
         IEnumerable<ProductDetails> GetProductDetails(IEnumerable<string> productIds);
         IEnumerable<string> GetProductsFromOrder(string orderId);
+        bool OrderIsPaid(string orderId);
         bool OrderIsCancelled(string orderId);
     }
 
