@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Orders\CancelOrderFeature.cs" />
     <Compile Include="Orders\GetOrderHistoryFeature.cs" />
     <Compile Include="Orders\GetOrderSummaryFeature.cs" />
     <Compile Include="Orders\MakeOrderFeature.cs" />

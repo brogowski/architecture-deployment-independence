@@ -7,9 +7,10 @@ namespace Features.Orders
         private readonly IMakeOrderFeatureDataAccess _dataAccess;
         private readonly IShoppingCart _shoppingCart;
 
-        public MakeOrderFeature(IMakeOrderFeatureDataAccess dataAccess)
+        public MakeOrderFeature(IMakeOrderFeatureDataAccess dataAccess, IShoppingCart shoppingCart)
         {
             _dataAccess = dataAccess;
+            _shoppingCart = shoppingCart;
         }
 
         OrderConfirmationResult MakeOrder(IEnumerable<string> productIds)
