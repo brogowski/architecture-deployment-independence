@@ -1,14 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Features.Products
 {
     class ListProductsFeature
     {
-        public IEnumerable<Product> ListProducts()
+        private readonly IListProductsFeatureDataAccess _dataAccess;
+
+        public ListProductsFeature(IListProductsFeatureDataAccess dataAccess)
         {
-            throw new NotImplementedException();
+            _dataAccess = dataAccess;
         }
+
+        public IEnumerable<Product> ListProducts(Query query) => _dataAccess.ListProducts(query);
+    }
+
+    interface IListProductsFeatureDataAccess
+    {
+        IEnumerable<Product> ListProducts(Query query);
     }
 
     class Query

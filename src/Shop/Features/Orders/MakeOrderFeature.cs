@@ -1,14 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Features.Orders
 {
     class MakeOrderFeature
     {
+        private readonly IMakeOrderFeatureDataAccess _dataAccess;
+        private readonly IShoppingCart _shoppingCart;
+
+        public MakeOrderFeature(IMakeOrderFeatureDataAccess dataAccess)
+        {
+            _dataAccess = dataAccess;
+        }
+
         OrderConfirmationResult MakeOrder(IEnumerable<string> productIds)
         {
-            throw new NotImplementedException();
+            var id = _dataAccess.SaveOrder(productIds);
+            _shoppingCart.Clear();
+            return new OrderConfirmationResult
+            {
+                CompletedSuccessfully = true,
+                Message = "Order saved correctly.",
+                OrderId = id
+            };
         }
+    }
+
+    interface IShoppingCart
+    {
+        void Clear();
+    }
+
+    interface IMakeOrderFeatureDataAccess
+    {
+        string SaveOrder(IEnumerable<string> productIds);
     }
 
     class OrderConfirmationResult

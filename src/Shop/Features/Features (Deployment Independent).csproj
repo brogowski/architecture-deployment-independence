@@ -40,8 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Orders\GetOrderHistoryFeature.cs" />
     <Compile Include="Orders\GetOrderSummaryFeature.cs" />
     <Compile Include="Orders\MakeOrderFeature.cs" />
+    <Compile Include="Orders\OrderStatus.cs" />
     <Compile Include="Payments\PayForOrderFeature.cs" />
     <Compile Include="Products\ListProductsFeature.cs" />
     <Compile Include="Products\GetProductDetailsFeature.cs" />

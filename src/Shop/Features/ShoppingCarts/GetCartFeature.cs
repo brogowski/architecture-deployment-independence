@@ -1,19 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Features.ShoppingCarts
 {
     class GetCartFeature
     {
-        ShoppingCartBrief GetShoppingCartBrief()
+        private readonly IGetCartFeatureDataAccess _dataAccess;
+
+        public GetCartFeature(IGetCartFeatureDataAccess dataAccess)
         {
-            throw new NotImplementedException();
+            _dataAccess = dataAccess;
         }
 
-        ShoppingCart GetShoppingCartSummary()
-        {
-            throw new NotImplementedException();
-        }
+        ShoppingCartBrief GetShoppingCartBrief() => _dataAccess.GetShoppingCartBrief();
+
+        ShoppingCart GetShoppingCartSummary() => _dataAccess.GetShoppingCartSummary();
+    }
+
+    interface IGetCartFeatureDataAccess
+    {
+        ShoppingCartBrief GetShoppingCartBrief();
+        ShoppingCart GetShoppingCartSummary();
     }
 
     class ShoppingCartBrief

@@ -1,14 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Features.Products
 {
     class GetProductDetailsFeature
     {
-        ProductDetails GetDetails(string productId)
+        private readonly IGetProductDetailsFeatureDataAccess _dataAccess;
+
+        public GetProductDetailsFeature(IGetProductDetailsFeatureDataAccess dataAccess)
         {
-            throw new NotImplementedException();
+            _dataAccess = dataAccess;
         }
+
+        ProductDetails GetDetails(string productId) => _dataAccess.GetProductDetails(productId);
+    }
+
+    interface IGetProductDetailsFeatureDataAccess
+    {
+        ProductDetails GetProductDetails(string productId);
     }
 
     class ProductDetails
